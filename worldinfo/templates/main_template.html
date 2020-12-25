@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+  <!--<h3>This is the MAIN Template content for the Django Project</h3>-->
+  <br>  
+
+  <div>
+    <div style="float: left;width: 50%;">
+      <div class="card">
+        <div class="card-header pv">Number of Countries per Continent</div>
+        <div id="piechart1" style="height: 400px;"></div>
+      </div>
+    </div>
+    <div style="float: left;width: 50%;">
+      <div class="card">
+        <div class="card-header pv">Total Population per Continent</div>
+        <div id="piechart2" style="height: 400px;"></div>
+      </div>
+    </div>
+</div>   
+
+
+<!-- PIE CHART ONE -->
+<script type="text/javascript">
+
+  var x = {{data1|safe}};
+  var link = 'none';
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    
+    var chartdata = new google.visualization.DataTable();
+    chartdata.addColumn('string', 'Continent');
+    chartdata.addColumn('string', 'link');
+    chartdata.addColumn('number', 'Count');
+    for (i = 0; i < x.length; i++) { 
+        chartdata.addRow([ x[i][0], link, x[i][1] ]);
+    }
+
+    var view = new google.visualization.DataView(chartdata);
+    view.setColumns([0, 2]);
+
+    var options = {
+      title: 'Countries per Continent',
+      backgroundColor: '#fff8dc',
+      pieSliceText: 'value',
+      pieSliceBorderColor: 'black',
+      sliceVisibilityThreshold: .0001,
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+    chart.draw(view, options);
+  }
+   
+</script>
+
+<!-- PIE CHART -->
+<script type="text/javascript">
+
+  var x2 = {{data2|safe}};
+  var link = 'none';
+  
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart2);
+
+  function drawChart2() {
+    
+    var chartdata2 = new google.visualization.DataTable();
+    chartdata2.addColumn('string', 'Continent');
+    chartdata2.addColumn('string', 'link');
+    chartdata2.addColumn('number', 'Count');
+    for (i = 0; i < x2.length; i++) { 
+        chartdata2.addRow([ x2[i][0], link, x2[i][1] ]);
+    }
+
+    var view = new google.visualization.DataView(chartdata2);
+    view.setColumns([0, 2]);
+
+    var options = {
+      title: 'Population per Continent',
+      backgroundColor: '#fff8dc',
+      pieSliceText: 'value',
+      pieSliceBorderColor: 'black',
+      sliceVisibilityThreshold: .0001,
+    };
+    var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+    chart2.draw(view, options);
+  }
+   
+</script>
+
+<!-- REDRAW THE CHART ON WINDOW RESIZE, (MAKE CHART RESPONSIVE) -->
+<script type="text/javascript">
+  $(window).resize(function(){
+    drawChart();
+    drawChart2();
+  });
+</script>
+
+{% endblock %}
+
