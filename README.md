@@ -7,6 +7,7 @@
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#tech-stack">Tech Stack</a></li>
     <li><a href="#the-database">The Database</a></li>
+    <li><a href="#the-country-population">The Country Population</a></li>
   </ol>
 </details>
 
@@ -32,6 +33,12 @@ The major frameworks used to develop this project
 The database is installed on a RaspberryPI which is configured as the database server.<br>
 The schema can be downloaded from the MySQL website [here.](https://dev.mysql.com/doc/index-other.html)<br>
 The database installation instructions are [here.](https://dev.mysql.com/doc/world-setup/en/world-setup-installation.html)
+
+<!-- THE COUNTRY POPULATION -->
+## The Country Population
+Each continent's country population is displayed as a pie chart and in a table.
+The user selects the continent and Go to display the database information.
+
 
 ![](static/css/country_pop.png)
 
