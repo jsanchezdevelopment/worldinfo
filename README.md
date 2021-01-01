@@ -32,3 +32,7 @@ The major frameworks used to develop this project
 The database is installed on a RaspberryPI which is configured as the database server.<br>
 The schema can be downloaded from the MySQL website [here.](https://dev.mysql.com/doc/index-other.html)<br>
 The database installation instructions are [here.](https://dev.mysql.com/doc/world-setup/en/world-setup-installation.html)
+
+![](static/css/country_pop.png)
+
+![](static/css/country_pop2.png)

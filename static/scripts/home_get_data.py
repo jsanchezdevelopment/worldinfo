@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
 from do_Query import do_Query
-from mysql_queries import query2, query3
+from mysql_queries import q_continent_country_count, q_continent_pop
 
 DEBUG = False
 
 def home_get_data():
-  data1 = do_Query(query2)
-  data2 = do_Query(query3)
+  data1 = do_Query(q_continent_country_count)
+  data2 = do_Query(q_continent_pop)
   if DEBUG:
     print()
   # the population total is returned in the python "Decimal(x)" format

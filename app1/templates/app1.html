@@ -1,4 +1,122 @@
 {% extends 'index.html' %}
 {% block content %}
-  <h3>This is Application ONE Template content page.</h3>
+
+<!-- CONFIGURE NAV  -->
+<script>
+  // show/hide the nav items, see nav in index.html 
+  // action is the form action for this page which is a URL for this app
+     ConfigMenu("inline","none","inline","{% url 'app1_view' %}");
+</script>
+
+
+<div id="thedata">
+  <div class="container">
+    <div id="thespinner"></div>
+      <br>
+      <h1 style="padding: 4px 16px; margin-top:0px;margin-bottom:0px;">World Information Project: {{s_continent}}</h1>
+
+
+      {% for name in continents %}
+        <script type="text/javascript">
+          // Fill in the continent select element with all the names from the database
+          var n = "{{ name.0 }}"
+          var sel = document.getElementById('continent');
+          var opt = document.createElement('option');
+          opt.innerHTML = n;
+          opt.value = n;
+          sel.appendChild(opt);
+        </script>
+      {% endfor %}    
+
+      <!-- SAVE THE USER SELECTIONS! -->
+      <script type="text/javascript">
+        var s = '{{s_continent}}';
+        document.getElementById('continent').value = s;
+      </script>
+
+      <div>
+        <!-- CARD1 -->
+        <div style="float: left;width: 50%;">
+          <div class="card">
+            <div class="card-header">Population Chart</div>
+            <div id="card1" style="height: 500px;"></div>
+          </div>
+        </div>
+        <!-- CARD2 -->
+        <div style="float: left;width: 50%;">
+          <div class="card">
+            <div class="card-header">Population Table</div>
+            <div id="card2" style="height: 500px;"></div>
+          </div>
+        </div>
+      </div>   
+  
+
+
+      <br>
+      <div id='app1countries' style="display: none;">{{j_countries}}</div>
+  </div>
+</div>
+
+<!-- CARD1 CHART: COLUMN CHART -->
+<script type="text/javascript">
+  var data1 = {{j_countries|safe}};
+  var continent = document.getElementById("continent").value;
+
+  google.charts.load('current', {packages: ['corechart']});     
+  google.charts.setOnLoadCallback(drawChart1);
+
+  function drawChart1() {
+    var cfgdata1 = new google.visualization.DataTable();
+    cfgdata1.addColumn('string', 'Country');
+    cfgdata1.addColumn('number', 'Population');
+
+    var options1 = {title: 'Country Population',
+                   isStacked: 'false',
+                   backgroundColor: '#fff8dc',
+                   annotations: {
+                                  textStyle: {
+                                  fontSize: 16,
+                                  bold: true,
+                                  color: '#000',
+                                  auraColor: 'none',
+                                }},
+                   vAxis: { title: 'Population', },
+                   }; 
+
+    var i;
+    for (i = 0; i < data1.length; i++) { 
+      if ( continent == data1[i][1]) {
+        cfgdata1.addRow([ data1[i][0],Number(data1[i][2]) ]);
+      }
+    }
+    var chart = new google.visualization.PieChart(document.getElementById("card1"));
+    chart.draw(cfgdata1, options1);
+  }
+</script>
+
+
+<!-- CARD2 CHART: TABLE CHART -->
+<script type="text/javascript">
+  var data2 = {{j_countries|safe}};
+  var continent = document.getElementById("continent").value;
+  google.charts.load('current', {'packages':['table']});
+  google.charts.setOnLoadCallback(drawTable1);
+  
+  function drawTable1() {
+    var cfgdata2 = new google.visualization.DataTable();
+    cfgdata2.addColumn('string', 'Country');
+    cfgdata2.addColumn('number', 'Population');
+    for (i = 0; i < data2.length; i++) { 
+      if ( continent == data2[i][1]) {
+        cfgdata2.addRow([data2[i][0],data2[i][2]]);
+      }
+    }
+
+    var table = new google.visualization.Table(document.getElementById('card2'));
+
+    table.draw(cfgdata2, {showRowNumber: true, width: '100%', height: '100%'});
+  }
+</script>
+
 {% endblock %}

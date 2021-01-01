@@ -1,9 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
-
 {% block content %}
-  <!--<h3>This is the MAIN Template content for the Django Project</h3>-->
-  <br>  
+
+<!-- CONFIGURE NAV  -->
+<script>
+  // show/hide the nav items, see nav in index.html 
+  // action is the form action for this page which is a URL for this app
+     ConfigMenu("none","none","none","{% url 'index' %}");
+</script>
+  
+  <h1 style="padding: 4px 16px; margin-top:0px;margin-bottom:0px;">World Information Project</h1>
 
   <div>
     <div style="float: left;width: 50%;">
@@ -18,7 +24,7 @@
         <div id="piechart2" style="height: 400px;"></div>
       </div>
     </div>
-</div>   
+  </div>   
 
 
 <!-- PIE CHART ONE -->
