@@ -36,8 +36,8 @@ The database installation instructions are [here.](https://dev.mysql.com/doc/wor
 
 <!-- THE COUNTRY POPULATION -->
 ## The Country Population
-Each continent's country population is displayed as a pie chart and in a table.
-The user selects the continent and Go to display the database information.
+Each continent's country population is displayed as a pie chart and in a table.<br>
+The user selects the continent and Go to display the database information.<br>
 
 
 ![](static/css/country_pop.png)
