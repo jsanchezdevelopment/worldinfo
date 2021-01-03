@@ -20,12 +20,13 @@ def do_Query(query):
     print('Host: ' + os.getenv("MYSQL_HOST"))
     print('User: ' + os.getenv("MYSQL_USER"))
     print('Pwd: ' + os.getenv("MYSQL_PASSWORD"))
-    print('Account: ' + os.getenv("MYSQL_ACCOUNT"))
+    print('Database: ' + os.getenv("MYSQL_DATABASE"))
 
-  cnx = mysql.connector.connect(user=os.getenv("MYSQL_USER"), 
-                                password=os.getenv("MYSQL_PASSWORD"),
-                                host=os.getenv("MYSQL_HOST"),
-                                database='world')
+  cnx = mysql.connector.connect( user=os.getenv("MYSQL_USER"), 
+                                 password=os.getenv("MYSQL_PASSWORD"),
+                                 host=os.getenv("MYSQL_HOST"),
+                                 database=os.getenv("MYSQL_DATABASE")
+                               )
   cursor = cnx.cursor()
   cursor.execute(query)
   data = list(cursor.fetchall())
