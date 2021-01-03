@@ -5,17 +5,28 @@ import json
 
 # Create your views here.
 
+class vars:
+  continents = ''
+  countries = ''
+
+
 def app1_view(request):
   
   if 'continent' in request.GET:
     s_continent = request.GET['continent']
   else:
-    s_continent = "Select Continent?"
+    s_continent = "Select Continent"
 
+  if not vars.continents:
+    print('get continents')
+    vars.continents = do_Query(q_continents)
+    vars.continents.sort()
 
-  continents = do_Query(q_continents)
-  countries = do_Query(q_countries)
-  j_countries = json.dumps(countries)
+  if not vars.countries:
+    print('get countries')
+    vars.countries = do_Query(q_countries)
+    
+  j_countries = json.dumps(vars.countries)
 
-  return render(request, 'app1.html', {'continents':continents, 'j_countries':j_countries,'s_continent':s_continent})
+  return render(request, 'app1.html', {'continents':vars.continents, 'j_countries':j_countries,'s_continent':s_continent})
 
